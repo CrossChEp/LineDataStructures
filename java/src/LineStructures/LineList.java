@@ -1,3 +1,5 @@
+package LineStructures;
+
 import exceptions.NoSuchElementException;
 
 import java.rmi.NoSuchObjectException;
