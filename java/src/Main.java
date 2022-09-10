@@ -9,8 +9,11 @@ public class Main {
         LineLinkedList<String> linkedList = new LineLinkedList<>();
         linkedList.append("Hello!");
         linkedList.append("He!");
+        linkedList.append("He!");
+        linkedList.append("He!");
+        linkedList.append("He!");
         linkedList.print();
+        linkedList.add(2, "e");
         linkedList.print();
-        LinkedList<String> arr = new LinkedList<>();
     }
 }

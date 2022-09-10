@@ -15,16 +15,17 @@ public class LineLinkedList <T> {
             firstNode.nextNode = node;
             node.prevNode = firstNode;
             lastNode.prevNode = node;
+            node.nextNode = lastNode;
             return;
         }
         Node<T> head = firstNode;
         while (head.nextNode != null) {
             head = head.nextNode;
         }
-        head.nextNode = node;
-        node.prevNode = head;
-        lastNode.prevNode = node;
+        node.prevNode = head.prevNode;
         node.nextNode = lastNode;
+        head.prevNode.nextNode = node;
+        lastNode.prevNode = node;
     }
 
     public void add(int index, T element) {
@@ -32,8 +33,15 @@ public class LineLinkedList <T> {
         int currentIndex = 0;
         while (headNode.nextNode != null) {
             if(currentIndex == index) {
-
+                Node<T> newNode = new Node<>(element);
+                newNode.prevNode = headNode.prevNode;
+                newNode.nextNode = headNode;
+                newNode.prevNode.nextNode = newNode;
+                newNode.nextNode.prevNode = newNode;
+                return;
             }
+            headNode = headNode.nextNode;
+            currentIndex++;
         }
     }
 
@@ -47,8 +55,7 @@ public class LineLinkedList <T> {
         Node<T> headNode = firstNode.nextNode;
         while (headNode.nextNode != null) {
             if(headNode.value == element) {
-                headNode.prevNode.nextNode = headNode.nextNode;
-                headNode.nextNode.prevNode = headNode.prevNode;
+                link(headNode);
                 return;
             }
             headNode = headNode.nextNode;
@@ -60,13 +67,17 @@ public class LineLinkedList <T> {
         Node<T> headNode = firstNode.nextNode;
         while (headNode.nextNode != null) {
             if(indexCounter == index) {
-                headNode.prevNode.nextNode = headNode.nextNode;
-                headNode.nextNode.prevNode = headNode.prevNode;
+                link(headNode);
                 return;
             }
             indexCounter++;
             headNode = headNode.nextNode;
         }
+    }
+
+    private void link(Node<T> node) {
+        node.prevNode.nextNode = node.nextNode;
+        node.nextNode.prevNode = node.prevNode;
     }
 
     public void print() {
